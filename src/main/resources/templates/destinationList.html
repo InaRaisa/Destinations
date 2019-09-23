@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Destination List</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+	<div class="row">
+	<div class="col-sm-5"></div>
+	<div class="col-sm-6">
+		<h2>Destinations I Want to Visit</h2>
+	</div>
+	<div class="col-sm-1"></div>
+</div>
+	<div>
+	<table class="table table-striped">
+		<tr>
+			<th>Country</th>
+			<th>Capital</th>
+			<th>Population</th>
+			<th>Best Time to Visit</th>
+			<th>Ideal Length of Visit</th>
+			<th>Continent</th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr th:each="destination:${destinations}">
+			<td th:text="${destination.country}"></td>
+			<td th:text="${destination.capital}"></td>
+			<td th:text="${destination.population}"></td>
+			<td th:text="${destination.bestTimeToVisit}"></td>
+			<td th:text="${destination.IdealLengthOfVisit}"></td>
+			<td th:text="${destination.continent.name}"></td>
+			<td><a class="btn btn-success" th:href="@{/edit/{id}(id=${destination.id})}">Edit</a></td>
+			<td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${destination.id})}">Delete</a></td>
+		</tr>
+		<tr></tr>
+	</table>
+	</div>
+	<a href="/add" class="btn btn-success">Add Destination</a>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</html>

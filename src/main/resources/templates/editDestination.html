@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Edit a Destination</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Edit destination</h1>
+	<div>
+		<form th:object="${destination}" th:action="@{../save}" action="#" method="post">
+			<input type="hidden" th:field="*{id}" class="form-control" />
+			<input type="text" th:field="*{country}" />
+			<input type="text" th:field="*{capital}" /> 
+			<input type="text" th:field="*{population}" />
+			<input type="text" th:field="*{bestTimeToVisit}" />
+			<input type="text" th:field="*{idealLengthOfVisit}" />
+			<select id="conlist" th:field="*{continent}">
+				<option th:each="continent: ${continent}" th:value="${continent.continentid}" th:text="${continent.name}"></option>
+			</select> 
+			<input type="submit" class="btn btn-success" value="Save"></input>
+		</form>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</html>
