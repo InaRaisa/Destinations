@@ -26,9 +26,19 @@ public class UserController {
         return "signup";
     }	
     
+    
+    /**
+     * *Create new user
+     * Check if user already exists and validate form
+    
+     * @param signupForm
+     * @param bindingResult
+     * @return
+     */
+    
     @RequestMapping(value = "saveuser", method = RequestMethod.POST)
     public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
-    	if (!bindingResult.hasErrors()) {
+    	if (!bindingResult.hasErrors()) { // validation errors
     		if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) {	
 	    		String pwd = signupForm.getPassword();
 		    	BCryptPasswordEncoder bc = new BCryptPasswordEncoder();

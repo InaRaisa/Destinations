@@ -46,6 +46,7 @@ public class DestinationsController {
 
 		// Add new destination
 	@RequestMapping(value = "/add")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String addDestination(Model model) {
 		model.addAttribute("destination", new Destination());
 		model.addAttribute("continent", crepository.findAll());
@@ -62,14 +63,14 @@ public class DestinationsController {
 		// Delete destination
 		// Read the destination id from the path variable
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteDestination(@PathVariable("id") Long destinationId, Model model) {
 		repository.deleteById(destinationId);
 		return "redirect:../destinationlist";
 	}
 
 	@RequestMapping(value = "/edit/{id}")
-	@PreAuthorize("hasAuthority('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String editDestination(@PathVariable("id") Long destinationId, Model model) {
 		model.addAttribute("destination", repository.findById(destinationId));
 		model.addAttribute("continent", crepository.findAll());

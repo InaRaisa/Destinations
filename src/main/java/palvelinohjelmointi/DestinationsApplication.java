@@ -1,29 +1,29 @@
 package palvelinohjelmointi;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+//import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Bean;
 
-import palvelinohjelmointi.domain.Continent;
-import palvelinohjelmointi.domain.ContinentRepository;
-import palvelinohjelmointi.domain.Destination;
-import palvelinohjelmointi.domain.DestinationRepository;
+//import palvelinohjelmointi.domain.Continent;
+//import palvelinohjelmointi.domain.ContinentRepository;
+//import palvelinohjelmointi.domain.Destination;
+//import palvelinohjelmointi.domain.DestinationRepository;
 
 // Author: Ina Räisänen
 // Student number: a1800750
 
 @SpringBootApplication
 public class DestinationsApplication {
-	private static final Logger log = LoggerFactory.getLogger(DestinationsApplication.class);
+	//private static final Logger log = LoggerFactory.getLogger(DestinationsApplication.class);
 	
 	public static void main(String[] args) {
 		SpringApplication.run(DestinationsApplication.class, args);
 	}
 	
-		// Nämä poistetaan sitten kun MariaDB:seen on lisätty nämä tiedot:
+		/* Nämä poistetaan sitten kun MariaDB:seen on lisätty nämä tiedot:
 	@Bean
 	public CommandLineRunner demo(DestinationRepository repository, ContinentRepository crepository) {
 		return (args) -> {
@@ -43,5 +43,5 @@ public class DestinationsApplication {
 				log.info(destination.toString());
 			}
 		};
-	}
+	}*/
 }
