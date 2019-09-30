@@ -7,64 +7,81 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import palvelinohjelmointi.domain.SignupForm;
+import palvelinohjelmointi.domain.CheckUser;
 import palvelinohjelmointi.domain.User;
 import palvelinohjelmointi.domain.UserRepository;
 
+
+
+/**
+ * Controller that contains functionality for creating 
+ * new users to Bookstore application.
+ * @author h01340
+ *
+ */
+
 @Controller
 public class UserController {
-	@Autowired
-    private UserRepository repository; 
+
+	// Initialize UserRepository
+	@Autowired 
+	UserRepository userRepository; 
 	
-    @RequestMapping(value = "signup")
-    public String addStudent(Model model){
-    	model.addAttribute("signupform", new SignupForm());
-        return "signup";
-    }	
-    
-    
-    /**
-     * *Create new user
-     * Check if user already exists and validate form
-    
-     * @param signupForm
-     * @param bindingResult
-     * @return
-     */
-    
-    @RequestMapping(value = "saveuser", method = RequestMethod.POST)
-    public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
-    	if (!bindingResult.hasErrors()) { // validation errors
-    		if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) {	
-	    		String pwd = signupForm.getPassword();
-		    	BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+	// Add new user
+	@GetMapping("addUser")
+	public String addUser(Model model) {
+		System.out.println("addUser");
+		model.addAttribute("checkUser", new CheckUser());
+		return "newUser";
+	}
+	
+	// Save new user in the database
+	@PostMapping("saveUser")
+	public String saveUser(@Valid @ModelAttribute("checkUser") CheckUser cUser, BindingResult bindingResult) {
+    	
+		System.out.println("saveUser " + cUser.getPassword() );
+		if (!bindingResult.hasErrors()) { // If there are no validation errors, continue
+    		if (cUser.getPassword().equals(cUser.getPasswordCheck())) { // Check if passwords match
+    			
+	    		String pwd = cUser.getPassword();
+	    		BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 		    	String hashPwd = bc.encode(pwd);
-	
 		    	User newUser = new User();
 		    	newUser.setPasswordHash(hashPwd);
-		    	newUser.setUsername(signupForm.getUsername());
-		    	newUser.setRole("USER");
-		    	if (repository.findByUsername(signupForm.getUsername()) == null) {
-		    		repository.save(newUser);
+		    	newUser.setUsername(cUser.getUsername());
+		    	newUser.setRole(cUser.getRole().toUpperCase());
+		    	if (userRepository.findByUsername(cUser.getUsername()) == null) { // Check if username already exists
+		    		System.out.println("Username does not exist yet");
+		    		userRepository.save(newUser);
 		    	}
 		    	else {
+		    		System.out.println("Username already exists");
 	    			bindingResult.rejectValue("username", "err.username", "Username already exists");    	
-	    			return "signup";		    		
+	    			return "newUser";		    		
 		    	}
     		}
     		else {
-    			bindingResult.rejectValue("passwordCheck", "err.passCheck", "Password does not match");    	
-    			return "signup";
+    			System.out.println("Passwords do not match");
+    			bindingResult.rejectValue("passwordCheck", "err.passCheck", "Passwords do not match");    	
+    			return "newUser";
     		}
     	}
     	else {
-    		return "signup";
+    		System.out.println("Password is too short");
+    		bindingResult.rejectValue("passwordCheck", "err.passCheck", "Password is too short");
+    		return "newUser";
     	}
     	return "redirect:/login";    	
-    }    
-    
+    }  
+
+	
+	
+	//poistetaan käyttäjä - optional
+	
+	//vaihdetaan salasanaa - optional
+	
 }

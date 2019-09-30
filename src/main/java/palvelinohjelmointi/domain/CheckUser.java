@@ -2,17 +2,19 @@ package palvelinohjelmointi.domain;
 
 import javax.validation.constraints.Size;
 
-public class SignupForm {
-    @Size(min=5, max=25)
+public class CheckUser {
+		
+    @Size(min=5, max=30)
     private String username = "";
 
-    @Size(min=7, max=60)
+
+    @Size(min=7, max=30)
     private String password = "";
 
-    @Size(min=7, max=60)
+    @Size(min=7, max=30)
     private String passwordCheck = "";
 
-    private String role = "USER";
+   private String role = "USER";
 
 	public String getUsername() {
 		return username;
@@ -45,5 +47,6 @@ public class SignupForm {
 	public void setRole(String role) {
 		this.role = role;
 	}
-       
+    
+
 }

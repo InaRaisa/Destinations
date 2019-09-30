@@ -8,7 +8,7 @@
 </head>
 <body>
 		<h1>Add destination</h1>
-		<div>
+		<div class="container">
 			<form th:object="${destination}" th:action="@{save}" action="#"
 				method="post">
 					<label for="country">Country:</label> <input type="text"
@@ -22,11 +22,15 @@
 					<label for="idealLengthOfVisit">Ideal Length of Visit:</label> <input
 						type="text" id="idealLengthOfVisit"
 						th:field="*{idealLengthOfVisit}" />
+					
+					<div style="clear: both; display: block; height: 10px;"></div>						
 					<label for="conlist">Continent:</label> <select id="conlist"
 						th:field="*{continent}" class="form-control">
 						<option th:each="continent: ${continent}"
 							th:value="${continent.continentid}" th:text="${continent.name}"></option>
 					</select>
+					
+				<div style="clear: both; display: block; height: 10px;"></div>
 				<input class="btn btn-success" type="submit" value="Save"></input>
 			</form>
 		</div>

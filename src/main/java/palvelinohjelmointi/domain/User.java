@@ -13,6 +13,7 @@ public class User {
 	@Column(name = "id", nullable = false, updatable = false)
 	private Long id;
 	
+	// Username with unique constraint
 	@Column(name = "username", nullable = false, unique = true)
 	private String username;
 	
@@ -22,13 +23,15 @@ public class User {
 	@Column(name = "role", nullable = false)
 	private String role;
 	
+	public User() {
+	}
+	
 	public User(String username, String password, String role) {
+		super();
 		this.username = username;
 		this.passwordHash = password;
 		this.role = role;
 	}
-	
-	public User() {}
 	
 	public Long getId() {
 		return id;
@@ -54,10 +57,4 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash + ", role=" + role + "]";
-	}
-	
-	
 }

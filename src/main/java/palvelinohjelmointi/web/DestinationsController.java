@@ -26,19 +26,25 @@ public class DestinationsController {
 	private ContinentRepository crepository;
 	
 		// Show all destinations
-	@RequestMapping(value="/destinationlist", method = RequestMethod.GET)
-	public String DestinationList(Model model) {
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
+	
+		// Show all destinations
+	@RequestMapping(value="/destinationList")
+	public String destinationList(Model model) {
 		model.addAttribute("destinations", repository.findAll());
-		return "destinationlist";
+		return "destinationList";
 	}
 		
 		// RESTful service to get all destinations
-	@RequestMapping(value = "/destinations", method = RequestMethod.GET)
+	@RequestMapping(value = "/destinations")
 	public @ResponseBody List<Destination> destinationListRest() {
 		return (List<Destination>) repository.findAll();
 	}
 		
-		// RESTful service to get destination by id
+		// RESTful service to get a destination by id
 	@RequestMapping(value="/destination/{id}", method = RequestMethod.GET)
 	public @ResponseBody Optional<Destination> findDestinationRest(@PathVariable("id") Long destinationId) {
 		return repository.findById(destinationId);
@@ -57,7 +63,7 @@ public class DestinationsController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(Destination destination) {
 		repository.save(destination);
-		return "redirect:destinationlist";
+		return "redirect:destinationList";
 	}
 	
 		// Delete destination
@@ -66,19 +72,15 @@ public class DestinationsController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteDestination(@PathVariable("id") Long destinationId, Model model) {
 		repository.deleteById(destinationId);
-		return "redirect:../destinationlist";
+		return "redirect:../destinationList";
 	}
-
+	
+	// Edit destination
 	@RequestMapping(value = "/edit/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public String editDestination(@PathVariable("id") Long destinationId, Model model) {
 		model.addAttribute("destination", repository.findById(destinationId));
 		model.addAttribute("continent", crepository.findAll());
-		return "editdestination";
-	}
-	
-    @RequestMapping(value="/login")
-    public String login() {
-    	return "login";
+		return "editDestination";
     }
 }
