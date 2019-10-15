@@ -9,33 +9,38 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import palvelinohjelmointi.domain.UserDetailServiceImpl;
+import palvelinohjelmointi.web.UserDetailServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
 	@Autowired
 	private UserDetailServiceImpl userDetailsService;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-			.authorizeRequests().antMatchers("/signup", "/saveuser").permitAll()
-			.and()
-			.authorizeRequests().anyRequest().authenticated()
-			.and()
-		.formLogin()
-			.loginPage("/login")
-			.defaultSuccessUrl("/destinationList")
-			.permitAll()
-			.and()
-		.logout()
-			.permitAll();
-	}
+		// all users are allowed to go to the index page
+		.authorizeRequests().antMatchers("/index").permitAll()
+		// only admin users are allowed to go to pages under /admin dir
+		.antMatchers("/admin/**").hasAuthority("ADMIN")
+		//all other requests must be authenticated
+		.anyRequest().authenticated()
+	.and()
+	.formLogin()
+		.loginPage("/login")
+		// where to go after a successful login
+		.defaultSuccessUrl("/index")
+		.permitAll()
+	.and()
+	.logout().permitAll();
+}
 	
-	  @Autowired
-	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		  auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-	  }
+	// Spring Security will automatically encrypt the password using BCrypt
+   @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+    }
 }

@@ -13,25 +13,27 @@ import javax.persistence.OneToMany;
 public class Continent {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long continentid;
+	private long id;
 	private String name;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "continent")
 	private List<Destination> destinations;
 
-	public Continent() {}
+	public Continent() {
+		super();
+	}
 
 	public Continent(String name) {
-		super();
+		System.out.println("name is " + name);
 		this.name = name;
 	}
 
-	public Long getContinentid() {
-		return continentid;
+	public Long getId() {
+		return id;
 	}
 	
-	public void setContinentid(Long continentid) {
-		this.continentid = continentid;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -52,6 +54,6 @@ public class Continent {
 
 	@Override
 	public String toString() {
-		return "Continent [continentid=" + continentid + ", name=" + name + "]";
+		return "Continent [id=" + id + ", name=" + name + "]";
 	}
 }

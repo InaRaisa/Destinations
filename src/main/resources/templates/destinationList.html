@@ -1,23 +1,20 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<title>Destination List</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
-
+<head>
+	<title>Destination List</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 	<div class="container">
-		<div class="col-md-4">
-			<h1>Destinations</h1>
-		</div>
-		<div class="col-md-4">
-			<h3 th:inline="text">Welcome
-				[[${#httpServletRequest.remoteUser}]]</h3>
-		</div>
-		<div class="col-md-4" style="padding: 20px 0">
+		<div style="padding: 5px 0">
+			<p th:inline="text" class="text-secondary">Welcome [[${#httpServletRequest.remoteUser}]]</p>
 			<form th:action="@{/logout}" method="post">
-				<input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
+				<input type="submit" value="Sign Out" class="btn btn-secondary" />
 			</form>
+		</div>
+		<div style="padding: 5px 0">
+			<h1>Destinations</h1>
 		</div>
 		<table class="table table-striped">
 			<tr>
@@ -29,25 +26,26 @@
 				<th>Continent</th>
 				<th></th>
 				<th></th>
-				<th sec:authorize="hasRole('ADMIN')"></th>
+				<th sec:authorize="hasAuthority('ADMIN')"></th>
 			</tr>
 			<tr th:each="destination:${destinations}">
 				<td th:text="${destination.country}"></td>
 				<td th:text="${destination.capital}"></td>
 				<td th:text="${destination.population}"></td>
 				<td th:text="${destination.bestTimeToVisit}"></td>
-				<td th:text="${destination.IdealLengthOfVisit}"></td>
-				<td th:text="${destination.continent.name}"></td>
-				<td sec:authorize="hasRole('ADMIN')"><a
-					th:href="@{/edit/{id}(id=${destination.id})}"
-					class="btn btn-success">Edit</a></td>
-				<td sec:authorize="hasRole('ADMIN')"><a
-					th:href="@{/delete/{id}(id=${destination.id})}"
-					class="btn btn-xs btn-danger">Delete</a></td>
+				<td th:text="${destination.idealLengthOfVisit}"></td>
+				<td> <div th:if="${destination.continent != NULL}" th:text="${destination.continent.name}"></div></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${destination.id})}" class="btn btn-success">Edit</a></td>
+				<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${destination.id})}" class="btn btn-danger">Delete</a></td>
 			</tr>
 			<tr></tr>
 		</table>
+		<div style="padding: 10px 0">
+			<div sec:authorize="hasAuthority('ADMIN')"> <a href="/addDestination" class="btn btn-primary">Add New Destination</a></div>
+		</div>
+		<div style="padding: 10px 0">
+			<div sec:authorize="hasAuthority('ADMIN')"> <a href="/addUser" class="btn btn-warning">Add New User</a></div>
+		</div>
 	</div>
-	<div sec:authorize="hasRole('ADMIN')"> <a href="/add" class="btn btn-primary">Add Destination</a></div>
 </body>
 </html>

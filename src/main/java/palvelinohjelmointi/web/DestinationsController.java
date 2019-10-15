@@ -25,6 +25,12 @@ public class DestinationsController {
 	@Autowired
 	private ContinentRepository crepository;
 	
+		// Show index page
+	@RequestMapping(value="/index")
+	public String index() {
+		return "index";
+	}
+	
 		// Show all destinations
 	@RequestMapping(value="/login")
 	public String login() {
@@ -46,16 +52,16 @@ public class DestinationsController {
 		
 		// RESTful service to get a destination by id
 	@RequestMapping(value="/destination/{id}", method = RequestMethod.GET)
-	public @ResponseBody Optional<Destination> findDestinationRest(@PathVariable("id") Long destinationId) {
-		return repository.findById(destinationId);
+	public @ResponseBody Optional<Destination> findDestinationRest(@PathVariable("id") Long id) {
+		return repository.findById(id);
 }
 
 		// Add new destination
-	@RequestMapping(value = "/add")
-	@PreAuthorize("hasRole('ADMIN')")
+	@RequestMapping(value = "/addDestination")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String addDestination(Model model) {
 		model.addAttribute("destination", new Destination());
-		model.addAttribute("continent", crepository.findAll());
+		model.addAttribute("continents", crepository.findAll());
 		return "addDestination";
 	}
 
@@ -69,18 +75,19 @@ public class DestinationsController {
 		// Delete destination
 		// Read the destination id from the path variable
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ADMIN')")
-	public String deleteDestination(@PathVariable("id") Long destinationId, Model model) {
-		repository.deleteById(destinationId);
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String deleteDestination(@PathVariable("id") Long id, Model model) {
+		repository.deleteById(id);
 		return "redirect:../destinationList";
 	}
 	
 	// Edit destination
 	@RequestMapping(value = "/edit/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public String editDestination(@PathVariable("id") Long destinationId, Model model) {
-		model.addAttribute("destination", repository.findById(destinationId));
-		model.addAttribute("continent", crepository.findAll());
-		return "editDestination";
+	@PreAuthorize("hasAuthority('ADMIN')")
+	public String editDestination(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("destination", repository.findById(id));
+		model.addAttribute("continents", crepository.findAll());
+		return "redirect:destinationList";
     }
+	
 }

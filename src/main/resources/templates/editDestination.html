@@ -1,27 +1,35 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Edit a Destination</title>
+<title>Edit Destination</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Edit destination</h1>
 	<div class="container">
-		<form th:object="${destination}" th:action="@{../save}" action="#" method="post">
-			<input type="hidden" th:field="*{id}" class="form-control" />
-			<input type="text" th:field="*{country}" />
-			<input type="text" th:field="*{capital}" /> 
-			<input type="text" th:field="*{population}" />
-			<input type="text" th:field="*{bestTimeToVisit}" />
-			<input type="text" th:field="*{idealLengthOfVisit}" />
-			<select id="conlist" th:field="*{continent}">
-				<option th:each="continent: ${continent}" th:value="${continent.continentid}" th:text="${continent.name}"></option>
-			</select> 
+		<div class="col-md-4">
+			<h1>Edit destination</h1>
+		</div>
+		<div class="form-group">
+			<form th:object="${destination}" th:action="@{/save}" action="#" method="post">
+				<input type="hidden" id="id" th:field="*{id}" class="form-control" />
+				<label for="country">Country: </label><input type="text" id="country" th:field="${destination.country}" />
+				<label for="capital">Capital: </label><input type="text" id="capital" th:field="${destination.capital}" /> 
+				<label for="population">Population: </label><input type="text" id="population" th:field="${destination.population}" />
+				<label for="bestTimeToVisit">Best Time to Visit: </label><input type="text" id="bestTimeToVisit" th:field="${destination.bestTimeToVisit}" />
+				<label for="idealLengthOfVisit">Ideal Length of Visit: </label><input type="text" id="idealLengthOfVisit" th:field="${destination.idealLengthOfVisit}" />
 			
-			<div style="clear: both; display: block; height: 10px;"></div>
-			<input type="submit" class="btn btn-success" value="Save"></input>
-		</form>
+				<div style="clear: both; display: block; height: 10px;"></div>						
+				<label for="continents">Continent: </label>
+				<select id="continents" th:field="*{continent}" class="form-control">
+					<option th:each="continent: ${continents}" th:value="${continent.id}" th:text="${continent.name}"></option>
+				</select>
+			
+				<div style="clear: both; display: block; height: 10px;"></div>
+					<a href="/destinationList" id="cancel" class="btn btn-danger">Cancel</a>
+				<input type="submit" class="btn btn-success" value="Save"></input>
+			</form>
+		</div>
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

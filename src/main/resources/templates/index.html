@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>Destinations</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-	<h1>Destinations Main Page</h1>
-	<a th:href="@{/destinationList}">Show the Destinations</a>
-	<br>
-	<a th:href="@{/addUser}">Add a New User</a>
+	<div class="container">
+		<div style="padding-top: 50px; padding-left: 190px; padding-bottom: 30px">
+			<h1>Destinations Index</h1>
+		</div>
+	<div class="col-sm-offset-2 col-sm-10" style="padding: 10px 0">
+		<a class="btn btn-primary" th:href="@{/destinationList}" role="button">Show Destinations</a>
+	</div>
+	<div class="col-sm-offset-2 col-sm-10" style="padding: 10px 0" sec:authorize="hasAuthority('ADMIN')">
+		<a href="/addUser" class="btn btn-primary" role="button">Add New User</a>
+	</div>
+</div>
 </body>
 </html>

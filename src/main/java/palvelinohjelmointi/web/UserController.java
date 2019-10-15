@@ -15,14 +15,7 @@ import palvelinohjelmointi.domain.CheckUser;
 import palvelinohjelmointi.domain.User;
 import palvelinohjelmointi.domain.UserRepository;
 
-
-
-/**
- * Controller that contains functionality for creating 
- * new users to Bookstore application.
- * @author h01340
- *
- */
+//Controller for creating new users to the Destinations application
 
 @Controller
 public class UserController {

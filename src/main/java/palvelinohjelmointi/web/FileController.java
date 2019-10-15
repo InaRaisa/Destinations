@@ -1,4 +1,4 @@
-package palvelinohjelmointi.web;
+/*package palvelinohjelmointi.web;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -34,8 +34,6 @@ public class FileController {
 
     @PostMapping("/upload")
     public String fileUpload(@RequestParam("file") MultipartFile file, Model model) {
-    	// Image Base64.getEncoder().encodeToString(file.file)
-    	// <img  th:src="@{'data:image/jpeg;base64,'+${file.file}}" />
         if (file.isEmpty()) {
         	model.addAttribute("msg", "Upload failed");
             return "uploadstatus";
@@ -73,4 +71,4 @@ public class FileController {
 		return ResponseEntity.status(404).body(null);
 	}    
     
-}
+}*/

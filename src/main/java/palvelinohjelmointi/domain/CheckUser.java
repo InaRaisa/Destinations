@@ -4,7 +4,7 @@ import javax.validation.constraints.Size;
 
 public class CheckUser {
 		
-    @Size(min=5, max=30)
+    @Size(min=5, max=30, message= "Username is too short")
     private String username = "";
 
 

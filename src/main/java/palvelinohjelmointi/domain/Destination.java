@@ -15,27 +15,35 @@ public class Destination {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String country;
-	private String capital;
-	private String bestTimeToVisit;
-	private String idealLengthOfVisit;
+	private String country, capital, bestTimeToVisit, idealLengthOfVisit;
 	private int population;
 	
 	@ManyToOne
+	//JsonIgnore helps to ignore endless loop
 	@JsonIgnore
-	@JoinColumn(name = "destinationid")
+	@JoinColumn(name = "continentId")
 	private Continent continent;
 	
 	public Destination() {}
 
-	public Destination(Continent continent, String country, String capital, int population, String bestTimeToVisit, String idealLengthOfVisit) {
+	public Destination(String country, String capital, int population, String bestTimeToVisit, String idealLengthOfVisit) {
 		super();
 		this.country = country;
 		this.capital = capital;
 		this.population = population;
 		this.bestTimeToVisit = bestTimeToVisit;
 		this.idealLengthOfVisit = idealLengthOfVisit;
-		this.continent=continent;
+	}
+	
+	public Destination(String country, String capital, int population, String bestTimeToVisit, String idealLengthOfVisit, Continent continent) {
+		super();
+		System.out.println("Destination constructor");
+		this.country = country;
+		this.capital = capital;
+		this.population = population;
+		this.bestTimeToVisit = bestTimeToVisit;
+		this.idealLengthOfVisit = idealLengthOfVisit;
+		this.continent = continent;
 	}
 	
 	public Long getId() {
@@ -94,10 +102,11 @@ public class Destination {
 		this.continent = continent;
 	}
 	
-
+	@Override
 	public String toString() {
+		
 		if (this.continent != null)
-			return "Destination [id=" + id + ", country=" + country + ", capital= " + capital + ", population= " + population + ", bestTimeToVisit=" + bestTimeToVisit + ", idealTimeToVisit= " + idealLengthOfVisit + ", continent=" + this.getContinent() + "]";
+			return "Destination [id=" + id + ", country=" + country + ", capital= " + capital + ", population= " + population + ", bestTimeToVisit=" + bestTimeToVisit + ", idealTimeToVisit= " + idealLengthOfVisit + ", continent=" + continent + "]";
 		else
 			return "Destination [id=" + id + ", country=" + country + ", capital= " + capital + ", population= " + population + ", bestTimeToVisit=" + bestTimeToVisit + ", idealTimeToVisit= " + idealLengthOfVisit + "]";
 	}
