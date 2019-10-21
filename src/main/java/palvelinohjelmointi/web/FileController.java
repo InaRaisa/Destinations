@@ -1,7 +1,6 @@
-/*package palvelinohjelmointi.web;
+package palvelinohjelmointi.web;
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ public class FileController {
 	@Autowired
 	private FileModelRepository repository; 	
 
+	// Reading the upload.path value from application.properties and saving it to the uploadFolder variable
     @Value("${upload.path}")
     private String uploadFolder;
     
@@ -34,11 +34,13 @@ public class FileController {
 
     @PostMapping("/upload")
     public String fileUpload(@RequestParam("file") MultipartFile file, Model model) {
+    	// Check if the file is empty
         if (file.isEmpty()) {
         	model.addAttribute("msg", "Upload failed");
             return "uploadstatus";
         }
-
+		
+		// Save the uploaded file in the upload folder
         try {
             FileModel fileModel = new FileModel(file.getOriginalFilename(), file.getContentType(), file.getBytes());
             repository.save(fileModel);
@@ -51,12 +53,15 @@ public class FileController {
         return "uploadstatus";
     }
     
+    // List uploaded files
     @GetMapping("/files")
     public String fileList(Model model) {
     	model.addAttribute("files", repository.findAll());  	
     	return "filelist";
     }
     
+    // Download files
+    // File content is added to the body of the HTTP response
 	@GetMapping("/file/{id}")
 	public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
 		Optional<FileModel> fileOptional = repository.findById(id);
@@ -71,4 +76,4 @@ public class FileController {
 		return ResponseEntity.status(404).body(null);
 	}    
     
-}*/
+}

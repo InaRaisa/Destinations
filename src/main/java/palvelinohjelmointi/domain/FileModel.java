@@ -11,8 +11,9 @@ public class FileModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String fileName, mimeType, base64str;
+	private String fileName, mimeType;
 
+	// File content is saved to Large object field
 	@Lob
 	private byte[] file;
 	
