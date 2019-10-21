@@ -28,6 +28,7 @@
 				<th></th>
 				<th sec:authorize="hasAuthority('ADMIN')"></th>
 			</tr>
+			<!-- In Thymeleaf, the model attributes can be accessed with this syntax: ${atrributeName} -->
 			<tr th:each="destination:${destinations}">
 				<td th:text="${destination.country}"></td>
 				<td th:text="${destination.capital}"></td>

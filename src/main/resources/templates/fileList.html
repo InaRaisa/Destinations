@@ -14,7 +14,7 @@
     	<tr th:each = "file : ${files}">
     		<td th:text="${file.fileName}"></td>
     		<td th:text="${file.mimeType}"></td>
- 				<td><a th:href="@{/file/{id}(id=${file.id})}">Download</a></td>    		
+ 			<td><a th:href="@{/file/{id}(id=${file.id})}">Download</a></td>    		
     	</tr>
      </table>
 	 <a href="/">Upload</a>    	

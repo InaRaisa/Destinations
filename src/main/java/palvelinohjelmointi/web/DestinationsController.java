@@ -16,9 +16,11 @@ import palvelinohjelmointi.domain.ContinentRepository;
 import palvelinohjelmointi.domain.Destination;
 import palvelinohjelmointi.domain.DestinationRepository;
 
+// Controller handles requests and returns the name of the View
 
 @Controller
 public class DestinationsController {
+	// @Autowired annotation brings the repository class into the context and will inject an instance of the service into the DestinationsController class
 	@Autowired
 	private DestinationRepository repository;
 	
@@ -38,6 +40,8 @@ public class DestinationsController {
 	}
 	
 		// Show all destinations
+		// The value of the parameter can be added to the Model object which makes it accessible to the View
+		// Model can contain the list of objects that can be iterated and displayed as a table with Thymeleaf: find.all() method returns here the list of destination objects
 	@RequestMapping(value="/destinationList")
 	public String destinationList(Model model) {
 		model.addAttribute("destinations", repository.findAll());
@@ -85,9 +89,10 @@ public class DestinationsController {
 	@RequestMapping(value = "/edit/{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
 	public String editDestination(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("destination", repository.findById(id));
+		Destination destination = repository.findById(id).get();
+		model.addAttribute("destination", destination);
 		model.addAttribute("continents", crepository.findAll());
-		return "redirect:destinationList";
+		return "editDestination";
     }
 	
 }

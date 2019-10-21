@@ -4,34 +4,60 @@
 <title>Edit Destination</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-	<div class="container">
-		<div class="col-md-4">
-			<h1>Edit destination</h1>
-		</div>
-		<div class="form-group">
-			<form th:object="${destination}" th:action="@{/save}" action="#" method="post">
-				<input type="hidden" id="id" th:field="*{id}" class="form-control" />
-				<label for="country">Country: </label><input type="text" id="country" th:field="${destination.country}" />
-				<label for="capital">Capital: </label><input type="text" id="capital" th:field="${destination.capital}" /> 
-				<label for="population">Population: </label><input type="text" id="population" th:field="${destination.population}" />
-				<label for="bestTimeToVisit">Best Time to Visit: </label><input type="text" id="bestTimeToVisit" th:field="${destination.bestTimeToVisit}" />
-				<label for="idealLengthOfVisit">Ideal Length of Visit: </label><input type="text" id="idealLengthOfVisit" th:field="${destination.idealLengthOfVisit}" />
-			
-				<div style="clear: both; display: block; height: 10px;"></div>						
-				<label for="continents">Continent: </label>
-				<select id="continents" th:field="*{continent}" class="form-control">
-					<option th:each="continent: ${continents}" th:value="${continent.id}" th:text="${continent.name}"></option>
-				</select>
-			
-				<div style="clear: both; display: block; height: 10px;"></div>
-					<a href="/destinationList" id="cancel" class="btn btn-danger">Cancel</a>
-				<input type="submit" class="btn btn-success" value="Save"></input>
-			</form>
-		</div>
-	</div>
-</body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<h2>Edit destination</h2>
+		<form class="form-horizontal" style="padding: 20px 0" th:object="${destination}" th:action="@{/save}" action="#" method="post">
+			<input type="hidden" id="id" th:field="*{id}" class="form-control" />
+			<div class="form-group">	
+				<label class="control-label col-sm-2" for="country">Country: </label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="country" th:field="${destination.country}" />
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="control-label col-sm-2" for="capital">Capital: </label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="capital" th:field="${destination.capital}" /> 
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="control-label col-sm-2" for="population">Population: </label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="population" th:field="${destination.population}" />
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="control-label col-sm-2" for="bestTimeToVisit">Best Time to Visit: </label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="bestTimeToVisit" th:field="${destination.bestTimeToVisit}" />
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="control-label col-sm-2" for="idealLengthOfVisit">Ideal Length of Visit: </label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="idealLengthOfVisit" th:field="${destination.idealLengthOfVisit}" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="continents">Continent: </label>
+				<div class="col-sm-10">
+					<select id="continents" th:field="*{continent}" class="form-control">
+						<option class="form-control" th:each="continent: ${continents}" th:value="${continent.id}" th:text="${continent.name}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<a href="/destinationList" id="cancel" class="btn btn-danger">Cancel</a>
+					<input type="submit" class="btn btn-success" value="Save"></input>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
 </html>

@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
+// To save uploaded files in the database
 @Entity
 public class FileModel {
 	@Id

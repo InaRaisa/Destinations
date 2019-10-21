@@ -4,7 +4,7 @@ import javax.validation.constraints.Size;
 
 public class CheckUser {
 		
-    @Size(min=5, max=30, message= "Username is too short")
+    @Size(min=4, max=30, message= "Username is too short")
     private String username = "";
 
 
@@ -14,7 +14,7 @@ public class CheckUser {
     @Size(min=7, max=30)
     private String passwordCheck = "";
 
-   private String role = "USER";
+    private String role = "USER";
 
 	public String getUsername() {
 		return username;
@@ -47,6 +47,4 @@ public class CheckUser {
 	public void setRole(String role) {
 		this.role = role;
 	}
-    
-
 }

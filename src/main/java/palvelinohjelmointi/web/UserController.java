@@ -15,6 +15,7 @@ import palvelinohjelmointi.domain.CheckUser;
 import palvelinohjelmointi.domain.User;
 import palvelinohjelmointi.domain.UserRepository;
 
+//Controller handles requests and returns the name of the View
 //Controller for creating new users to the Destinations application
 
 @Controller

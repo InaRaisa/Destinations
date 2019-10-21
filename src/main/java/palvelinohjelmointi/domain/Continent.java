@@ -9,9 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+// An entity represents a table in a relational database
 @Entity
 public class Continent {
+	// @Id annotation is used to create an id column of the table
 	@Id
+	// @GeneratedValue annotation generates a unique primary key automatically for each new entity object
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String name;
